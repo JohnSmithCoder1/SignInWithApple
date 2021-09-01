@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0502503626DFF36600783101 /* SignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0502503526DFF36600783101 /* SignInWithApple.swift */; };
 		181CBE022336B23400745C05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181CBE012336B23400745C05 /* LaunchScreen.storyboard */; };
 		D268018A22CCED59002D0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D268018922CCED59002D0298 /* AppDelegate.swift */; };
 		D268018C22CCED59002D0298 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D268018B22CCED59002D0298 /* SceneDelegate.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0502503526DFF36600783101 /* SignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithApple.swift; sourceTree = "<group>"; };
 		181CBE012336B23400745C05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D268018622CCED59002D0298 /* SignInWithApple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignInWithApple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D268018922CCED59002D0298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				D268018922CCED59002D0298 /* AppDelegate.swift */,
 				D268018F22CCED5C002D0298 /* Assets.xcassets */,
+				0502503526DFF36600783101 /* SignInWithApple.swift */,
 				D268018D22CCED59002D0298 /* ContentView.swift */,
 				D27C1D7F22F5EEC500E95819 /* CredentialStorage */,
 				D26801A122CCEE81002D0298 /* EnvironmentWindowKey.swift */,
@@ -192,6 +195,7 @@
 				D268018E22CCED59002D0298 /* ContentView.swift in Sources */,
 				D27C1D7E22F57BEC00E95819 /* UserDataKeychain.swift in Sources */,
 				D27C1D7C22F5709400E95819 /* UserData.swift in Sources */,
+				0502503626DFF36600783101 /* SignInWithApple.swift in Sources */,
 				D26801A222CCEE81002D0298 /* EnvironmentWindowKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
