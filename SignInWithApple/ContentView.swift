@@ -41,7 +41,8 @@ struct ContentView: View {
         UserAndPassword()
           .padding()
 
-        // Add Sign in with Apple UI View here
+        SignInWithApple()
+          .frame(width: 280, height: 60)
 
       }
     }
