@@ -31,6 +31,8 @@ import SwiftUI
 import AuthenticationServices
 
 struct ContentView: View {
+  @State var appleSignInDelegates: SignInWithAppleDelegates! = nil
+  
   var body: some View {
     ZStack {
       Color.green.edgesIgnoringSafeArea(.all)
@@ -55,7 +57,18 @@ struct ContentView: View {
     let request = ASAuthorizationAppleIDProvider().createRequest()
     request.requestedScopes = [.fullName, .email]
     
+    appleSignInDelegates = SignInWithAppleDelegates() { success in
+      if success {
+        // Update UI
+      } else {
+        // Show the user an error
+      }
+    }
+    
     let controller = ASAuthorizationController(authorizationRequests: [request])
+    controller.delegate = appleSignInDelegates
+    
+    controller.performRequests()
   }
 }
 

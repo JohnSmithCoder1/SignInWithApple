@@ -32,6 +32,7 @@ import AuthenticationServices
 class SignInWithAppleDelegates: NSObject {
   private let signInSucceeded: (Bool) -> Void
 
+  // This boolean is the success state of the delegate methods defined below
   init(onSignedIn: @escaping (Bool) -> Void) {
     self.signInSucceeded = onSignedIn
   }
