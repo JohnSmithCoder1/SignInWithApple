@@ -28,6 +28,7 @@
 
 import UIKit
 import SwiftUI
+import AuthenticationServices
 
 class SceneDelegate: UIResponder {
   var window: UIWindow?
@@ -43,5 +44,26 @@ extension SceneDelegate: UIWindowSceneDelegate {
     self.window = window
     
     window.makeKeyAndVisible()
+  }
+  
+  // If the user doesn't need to be signed in for all app functionality, a better way to do this would be to listen for iOS to broadcast the ASAuthorizationAppleIDProvider.credentialRevokedNotification, and take appropriate action then
+  private func performAuthCheck() {
+    let provider = ASAuthorizationAppleIDProvider()
+    
+    provider.getCredentialState(forUserID: "currentUserIdentifier") { state, error in
+      switch state {
+      case .authorized:
+        // Credentials are valid
+        break
+      case .revoked:
+        // Credentials revoked, log them out
+        break
+      case .notFound:
+        // Credentials not found, show loginUI
+        break
+      default:
+        break
+      }
+    }
   }
 }
