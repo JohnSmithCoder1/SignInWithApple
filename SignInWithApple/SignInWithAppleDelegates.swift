@@ -38,10 +38,44 @@ class SignInWithAppleDelegates: NSObject {
 }
 
 extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
+  // Credential.user is the unique identifier assigned by Apple that we'll use to identify the user in our system
+  private func registerNewAccount(credential: ASAuthorizationAppleIDCredential) {
+    let userData = UserData(email: credential.email!,
+                            name: credential.fullName!,
+                            identifier: credential.user)
+    
+    let keychain = UserDataKeychain()
+    
+    // Store the data in the iCloud keychain
+    do {
+      try keychain.store(userData)
+    } catch {
+      self.signInSucceeded(false)
+    }
+    
+    do {
+      let success = try WebApi.Register(user: userData,
+                                        identityToken: credential.identityToken,
+                                        authorizationCode: credential.authorizationCode
+      )
+      
+      self.signInSucceeded(success)
+    } catch {
+      self.signInSucceeded(false)
+    }
+  }
+  
+  // Apple will only provide this data on the FIRST successful authorization then never again, so make sure it is saved appropriately on the back end or temporarily store it until the database insertion can be successfully completed (in case of bad network or database connection, etc.)
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     switch authorization.credential {
     case let appleIdCredential as ASAuthorizationAppleIDCredential:
 
+      if let _ = appleIdCredential.email, let _ = appleIdCredential.fullName {
+        registerNewAccount(credential: appleIdCredential)
+      } else {
+        signInWithExistingAccount(credential: appleIdCredential)
+      }
+      
       break
 
     case let passwordCredential as ASPasswordCredential:

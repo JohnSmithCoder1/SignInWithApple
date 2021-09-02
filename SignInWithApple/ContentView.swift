@@ -53,8 +53,6 @@ struct ContentView: View {
   
   private func showAppleLogin() {
     let request = ASAuthorizationAppleIDProvider().createRequest()
-    
-    // Apple will only provide this data on the FIRST successful authorization then never again, so make sure it is saved appropriately on the back end or temporarily store it until the database insertion can be successfully completed (in case of bad network or database connection, etc.)
     request.requestedScopes = [.fullName, .email]
     
     let controller = ASAuthorizationController(authorizationRequests: [request])
