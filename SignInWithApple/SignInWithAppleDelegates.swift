@@ -38,6 +38,7 @@ class SignInWithAppleDelegates: NSObject {
 }
 
 extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
+  
   // Credential.user is the unique identifier assigned by Apple that we'll use to identify the user in our system
   private func registerNewAccount(credential: ASAuthorizationAppleIDCredential) {
     let userData = UserData(email: credential.email!,
@@ -65,6 +66,24 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
     }
   }
   
+  private func signInWithExistingAccount(credential: ASAuthorizationAppleIDCredential) {
+    
+    // You should have a fully registered account here; if you get an error from your server that the account doesn't exist, you can look in the keychain for credentials and attempt to rerun setup (e.g., if the user had a poor network connection during the initial login attempt).
+//    if (WebApi.login(credential.user, credential.identityToken, credential.authorizationCode)) {
+//      ...
+//    }
+    
+    self.signInSucceeded(true)
+  }
+  
+  private func signInWithUserAndPassword(credential: ASPasswordCredential) {
+//    if (WebApi.login(credential.user, credential.password)) {
+//      ...
+//    }
+    
+    self.signInSucceeded(true)
+  }
+  
   // Apple will only provide this data on the FIRST successful authorization then never again, so make sure it is saved appropriately on the back end or temporarily store it until the database insertion can be successfully completed (in case of bad network or database connection, etc.)
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     switch authorization.credential {
@@ -80,6 +99,7 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
 
     case let passwordCredential as ASPasswordCredential:
 
+      signInWithUserAndPassword(credential: passwordCredential)
       break
 
     default:
