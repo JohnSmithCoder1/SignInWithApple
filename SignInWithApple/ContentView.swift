@@ -49,7 +49,7 @@ struct ContentView: View {
       }
     }
     .onAppear {
-
+      self.performExistingAccountSetupFlows()
     }
   }
   
@@ -57,6 +57,10 @@ struct ContentView: View {
     let request = ASAuthorizationAppleIDProvider().createRequest()
     request.requestedScopes = [.fullName, .email]
     
+    performSignIn(using: [request])
+  }
+   
+  private func performSignIn(using requests: [ASAuthorizationRequest]) {
     appleSignInDelegates = SignInWithAppleDelegates() { success in
       if success {
         // Update UI
@@ -65,10 +69,21 @@ struct ContentView: View {
       }
     }
     
-    let controller = ASAuthorizationController(authorizationRequests: [request])
+    let controller = ASAuthorizationController(authorizationRequests: requests)
     controller.delegate = appleSignInDelegates
     
     controller.performRequests()
+  }
+  
+  private func performExistingAccountSetupFlows() {
+    #if !targetEnvironment(simulator)
+    let requests = [
+      ASAuthorizationAppleIDProvider().createRequest(),
+      ASAuthorizationPasswordProvider().createRequest()
+    ]
+    
+    performSignIn(using: requests)
+    #endif
   }
 }
 
